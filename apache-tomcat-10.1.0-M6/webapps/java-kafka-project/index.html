@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Kafka Message Sender</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f0f0f0;
+        }
+
+        .container {
+            margin: 0 auto;
+            max-width: 600px;
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        #messageScroll {
+            max-height: 300px; /* Increase the size of the message scroll window */
+            overflow-y: scroll;
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+
+        #messageInput {
+            width: 100%;
+            padding: 5px; /* Decrease the size of the message box */
+            margin-bottom: 10px;
+        }
+
+        #userSelect {
+            width: 100%;
+            padding: 5px;
+            margin-bottom: 10px;
+        }
+
+        #sendMessageButton {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Kafka Message Sender</h1>
+        <select id="userSelect">
+            <option value="Kanak">Kanak</option>
+            <option value="Mohan">Mohan</option>
+            <option value="Sailesh">Sailesh</option>
+            <option value="Chhayank">Chhayank</option>
+        </select>
+        <div id="messageScroll"></div> <!-- Place the message scroll window above the message box -->
+        <div>
+            <textarea id="messageInput" rows="4" placeholder="Type your message here"></textarea>
+        </div>
+        <div>
+            <button id="sendMessageButton">Send Message</button>
+        </div>
+    </div>
+
+    <script>
+        const messageInput = document.getElementById('messageInput');
+        const sendMessageButton = document.getElementById('sendMessageButton');
+        const messageScroll = document.getElementById('messageScroll');
+        const userSelect = document.getElementById('userSelect');
+        let socket;
+
+        // Connect to the WebSocket server
+        if (window.WebSocket) {
+            socket = new WebSocket('ws://172.25.81.37:8080/java-kafka-project/websocket');
+
+            socket.onopen = (event) => {
+                console.log('WebSocket opened:', event);
+            };
+
+            socket.onmessage = (event) => {
+                // Handle incoming messages from the server (Kafka Producer)
+                const message = event.data;
+                messageScroll.innerHTML += `<p>${message}</p>`;
+                // Scroll to the bottom to show the latest message
+                messageScroll.scrollTop = messageScroll.scrollHeight;
+            };
+
+            socket.onclose = (event) => {
+                console.log('WebSocket closed:', event);
+            };
+
+            socket.onerror = (event) => {
+                console.error('WebSocket error:', event);
+            };
+
+            sendMessageButton.addEventListener('click', () => {
+                const user = userSelect.value;
+                const message = messageInput.value;
+                if (message.trim() !== '') {
+                    // Send the message to the WebSocket server in the format "User Name, Message"
+                    socket.send(`${user}, ${message}`);
+                    // Clear the input field
+                    messageInput.value = '';
+                }
+            });
+        } else {
+            console.error('WebSocket is not supported in this browser.');
+        }
+    </script>
+</body>
+</html>
+

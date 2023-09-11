@@ -1,0 +1,407 @@
+#
+# There is insufficient memory for the Java Runtime Environment to continue.
+# Native memory allocation (mmap) failed to map 1073741824 bytes for committing reserved memory.
+# Possible reasons:
+#   The system is out of physical RAM or swap space
+#   The process is running with CompressedOops enabled, and the Java Heap may be blocking the growth of the native heap
+# Possible solutions:
+#   Reduce memory load on the system
+#   Increase physical memory or swap space
+#   Check if swap backing store is full
+#   Decrease Java heap size (-Xmx/-Xms)
+#   Decrease number of Java threads
+#   Decrease Java thread stack sizes (-Xss)
+#   Set larger code cache with -XX:ReservedCodeCacheSize=
+# This output file may be truncated or incomplete.
+#
+#  Out of Memory Error (os_linux.cpp:3123), pid=6138, tid=6476
+#
+# JRE version:  (11.0.20.1+1) (build )
+# Java VM: OpenJDK 64-Bit Server VM (11.0.20.1+1-post-Ubuntu-0ubuntu122.04, mixed mode, sharing, tiered, compressed oops, g1 gc, linux-amd64)
+# Core dump will be written. Default location: Core dumps may be processed with "/usr/share/apport/apport -p%p -s%s -c%c -d%d -P%P -u%u -g%g -- %E" (or dumping to /home/ubuntu/kafka_2.13-3.5.1/core.6138)
+#
+
+---------------  S U M M A R Y ------------
+
+Command Line: -Xmx1G -Xms1G -XX:+UseG1GC -XX:MaxGCPauseMillis=20 -XX:InitiatingHeapOccupancyPercent=35 -XX:+ExplicitGCInvokesConcurrent -XX:MaxInlineLevel=15 -Djava.awt.headless=true -Xlog:gc*:file=/home/ubuntu/kafka_2.13-3.5.1/bin/../logs/kafkaServer-gc.log:time,tags:filecount=10,filesize=100M -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Dkafka.logs.dir=/home/ubuntu/kafka_2.13-3.5.1/bin/../logs -Dlog4j.configuration=file:bin/../config/log4j.properties kafka.Kafka config/kraft/server.properties
+
+Host: Intel(R) Core(TM) i5-8250U CPU @ 1.60GHz, 1 cores, 892M, Ubuntu 22.04.3 LTS
+Time: Fri Sep  1 20:56:34 2023 IST elapsed time: 0.003744 seconds (0d 0h 0m 0s)
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x00007f240c018800):  JavaThread "Unknown thread" [_thread_in_vm, id=6476, stack(0x00007f241057e000,0x00007f241067e000)]
+
+Stack: [0x00007f241057e000,0x00007f241067e000],  sp=0x00007f241067c130,  free space=1016k
+Native frames: (J=compiled Java code, A=aot compiled Java code, j=interpreted, Vv=VM code, C=native code)
+V  [libjvm.so+0xeabb9a]  VMError::report_and_die(int, char const*, char const*, __va_list_tag*, Thread*, unsigned char*, void*, void*, char const*, int, unsigned long)+0x19a
+V  [libjvm.so+0xeac941]  VMError::report_and_die(Thread*, char const*, int, unsigned long, VMErrorType, char const*, __va_list_tag*)+0x31
+V  [libjvm.so+0x67ebfa]  report_vm_out_of_memory(char const*, int, unsigned long, VMErrorType, char const*, ...)+0xca
+V  [libjvm.so+0xbf4523]  os::pd_commit_memory_or_exit(char*, unsigned long, unsigned long, bool, char const*)+0xf3
+V  [libjvm.so+0xbed1a1]  os::commit_memory_or_exit(char*, unsigned long, unsigned long, bool, char const*)+0x21
+V  [libjvm.so+0x799135]  G1PageBasedVirtualSpace::commit_preferred_pages(unsigned long, unsigned long)+0x65
+V  [libjvm.so+0x799518]  G1PageBasedVirtualSpace::commit(unsigned long, unsigned long)+0x1a8
+V  [libjvm.so+0x7a48b7]  G1RegionsLargerThanCommitSizeMapper::commit_regions(unsigned int, unsigned long, WorkGang*)+0x47
+V  [libjvm.so+0x829d48]  HeapRegionManager::commit_regions(unsigned int, unsigned long, WorkGang*)+0x58
+V  [libjvm.so+0x82a998]  HeapRegionManager::make_regions_available(unsigned int, unsigned int, WorkGang*)+0x38
+V  [libjvm.so+0x82afe1]  HeapRegionManager::expand_by(unsigned int, WorkGang*)+0x71
+V  [libjvm.so+0x752d6f]  G1CollectedHeap::expand(unsigned long, WorkGang*, double*)+0xdf
+V  [libjvm.so+0x75344d]  G1CollectedHeap::initialize()+0x66d
+V  [libjvm.so+0xe67546]  Universe::initialize_heap()+0x36
+V  [libjvm.so+0xe677fa]  universe_init()+0x4a
+V  [libjvm.so+0x849edc]  init_globals()+0x5c
+V  [libjvm.so+0xe3eda2]  Threads::create_vm(JavaVMInitArgs*, bool*)+0x4b2
+V  [libjvm.so+0x8f3ef5]  JNI_CreateJavaVM+0x55
+C  [libjli.so+0x4d11]  JavaMain+0x91
+C  [libjli.so+0x998d]  ThreadJavaMain+0xd
+
+
+---------------  P R O C E S S  ---------------
+
+Threads class SMR info:
+_java_thread_list=0x0000560fe43c7ad0, length=0, elements={
+}
+
+Java Threads: ( => current thread )
+
+Other Threads:
+  0x00007f240c032000 GCTaskThread "GC Thread#0" [stack: 0x00007f241023c000,0x00007f241033c000] [id=6477]
+  0x00007f240c04d800 ConcurrentGCThread "G1 Main Marker" [stack: 0x00007f2410016000,0x00007f2410116000] [id=6478]
+  0x00007f240c04f800 ConcurrentGCThread "G1 Conc#0" [stack: 0x00007f23f40f1000,0x00007f23f41f1000] [id=6479]
+
+[error occurred during error reporting (printing all threads), id 0xb, SIGSEGV (0xb) at pc=0x00007f2411121f84]
+
+VM state:not at safepoint (not fully initialized)
+
+VM Mutex/Monitor currently owned by a thread:  ([mutex/lock_event])
+[0x00007f240c016dd0] Heap_lock - owner thread: 0x00007f240c018800
+
+Heap address: 0x00000000c0000000, size: 1024 MB, Compressed Oops mode: Non-zero based: 0x00000000c0000000
+Narrow klass base: 0x0000000000000000, Narrow klass shift: 0
+
+GC Heap History (0 events):
+No events
+
+Deoptimization events (0 events):
+No events
+
+Classes redefined (0 events):
+No events
+
+Internal exceptions (0 events):
+No events
+
+Events (2 events):
+Event: 0.002 Protecting memory [0x00007f241057e000,0x00007f2410582000] with protection modes 0
+Event: 0.002 Loaded shared library /usr/lib/jvm/java-11-openjdk-amd64/lib/libzip.so
+
+
+Dynamic libraries:
+560fe3cc7000-560fe3cc8000 r--p 00000000 08:01 259332                     /usr/lib/jvm/java-11-openjdk-amd64/bin/java
+560fe3cc8000-560fe3cc9000 r-xp 00001000 08:01 259332                     /usr/lib/jvm/java-11-openjdk-amd64/bin/java
+560fe3cc9000-560fe3cca000 r--p 00002000 08:01 259332                     /usr/lib/jvm/java-11-openjdk-amd64/bin/java
+560fe3cca000-560fe3ccb000 r--p 00002000 08:01 259332                     /usr/lib/jvm/java-11-openjdk-amd64/bin/java
+560fe3ccb000-560fe3ccc000 rw-p 00003000 08:01 259332                     /usr/lib/jvm/java-11-openjdk-amd64/bin/java
+560fe43ad000-560fe43ce000 rw-p 00000000 00:00 0                          [heap]
+7f23e0000000-7f23e0021000 rw-p 00000000 00:00 0 
+7f23e0021000-7f23e4000000 ---p 00000000 00:00 0 
+7f23e7b4b000-7f23e8000000 rw-p 00000000 00:00 0 
+7f23e8000000-7f23e8021000 rw-p 00000000 00:00 0 
+7f23e8021000-7f23ec000000 ---p 00000000 00:00 0 
+7f23ec000000-7f23ee000000 rw-p 00000000 00:00 0 
+7f23ee000000-7f23f0000000 ---p 00000000 00:00 0 
+7f23f0000000-7f23f0021000 rw-p 00000000 00:00 0 
+7f23f0021000-7f23f4000000 ---p 00000000 00:00 0 
+7f23f40ef000-7f23f40f0000 ---p 00000000 00:00 0 
+7f23f40f0000-7f23f41f1000 rw-p 00000000 00:00 0 
+7f23f41f1000-7f23f47f1000 ---p 00000000 00:00 0 
+7f23f47f1000-7f23f4a61000 rwxp 00000000 00:00 0 
+7f23f4a61000-7f23f4d80000 ---p 00000000 00:00 0 
+7f23f4d80000-7f23f4ff0000 rwxp 00000000 00:00 0 
+7f23f4ff0000-7f23fc2b8000 ---p 00000000 00:00 0 
+7f23fc2b8000-7f23fc528000 rwxp 00000000 00:00 0 
+7f23fc528000-7f24037f1000 ---p 00000000 00:00 0 
+7f24037f1000-7f240c000000 r--s 00000000 08:01 259491                     /usr/lib/jvm/java-11-openjdk-amd64/lib/modules
+7f240c000000-7f240c061000 rw-p 00000000 00:00 0 
+7f240c061000-7f2410000000 ---p 00000000 00:00 0 
+7f2410014000-7f2410015000 ---p 00000000 00:00 0 
+7f2410015000-7f241023a000 rw-p 00000000 00:00 0 
+7f241023a000-7f241023b000 ---p 00000000 00:00 0 
+7f241023b000-7f2410341000 rw-p 00000000 00:00 0 
+7f2410341000-7f2410427000 ---p 00000000 00:00 0 
+7f2410427000-7f241042c000 rw-p 00000000 00:00 0 
+7f241042c000-7f2410512000 ---p 00000000 00:00 0 
+7f2410512000-7f2410517000 rw-p 00000000 00:00 0 
+7f2410517000-7f241051e000 ---p 00000000 00:00 0 
+7f241051e000-7f2410520000 r--p 00000000 08:01 259490                     /usr/lib/jvm/java-11-openjdk-amd64/lib/libzip.so
+7f2410520000-7f2410525000 r-xp 00002000 08:01 259490                     /usr/lib/jvm/java-11-openjdk-amd64/lib/libzip.so
+7f2410525000-7f2410527000 r--p 00007000 08:01 259490                     /usr/lib/jvm/java-11-openjdk-amd64/lib/libzip.so
+7f2410527000-7f2410528000 r--p 00008000 08:01 259490                     /usr/lib/jvm/java-11-openjdk-amd64/lib/libzip.so
+7f2410528000-7f2410529000 rw-p 00009000 08:01 259490                     /usr/lib/jvm/java-11-openjdk-amd64/lib/libzip.so
+7f2410529000-7f2410531000 rw-s 00000000 08:01 258367                     /tmp/hsperfdata_ubuntu/6138
+7f2410531000-7f2410533000 r--p 00000000 08:01 259473                     /usr/lib/jvm/java-11-openjdk-amd64/lib/libjimage.so
+7f2410533000-7f2410536000 r-xp 00002000 08:01 259473                     /usr/lib/jvm/java-11-openjdk-amd64/lib/libjimage.so
+7f2410536000-7f2410537000 r--p 00005000 08:01 259473                     /usr/lib/jvm/java-11-openjdk-amd64/lib/libjimage.so
+7f2410537000-7f2410538000 ---p 00006000 08:01 259473                     /usr/lib/jvm/java-11-openjdk-amd64/lib/libjimage.so
+7f2410538000-7f2410539000 r--p 00006000 08:01 259473                     /usr/lib/jvm/java-11-openjdk-amd64/lib/libjimage.so
+7f2410539000-7f241053a000 rw-p 00007000 08:01 259473                     /usr/lib/jvm/java-11-openjdk-amd64/lib/libjimage.so
+7f241053a000-7f2410548000 r--p 00000000 08:01 259470                     /usr/lib/jvm/java-11-openjdk-amd64/lib/libjava.so
+7f2410548000-7f241055e000 r-xp 0000e000 08:01 259470                     /usr/lib/jvm/java-11-openjdk-amd64/lib/libjava.so
+7f241055e000-7f2410565000 r--p 00024000 08:01 259470                     /usr/lib/jvm/java-11-openjdk-amd64/lib/libjava.so
+7f2410565000-7f2410566000 r--p 0002a000 08:01 259470                     /usr/lib/jvm/java-11-openjdk-amd64/lib/libjava.so
+7f2410566000-7f2410567000 rw-p 0002b000 08:01 259470                     /usr/lib/jvm/java-11-openjdk-amd64/lib/libjava.so
+7f2410567000-7f2410568000 rw-p 00000000 00:00 0 
+7f2410568000-7f241056d000 r--p 00000000 08:01 259489                     /usr/lib/jvm/java-11-openjdk-amd64/lib/libverify.so
+7f241056d000-7f2410574000 r-xp 00005000 08:01 259489                     /usr/lib/jvm/java-11-openjdk-amd64/lib/libverify.so
+7f2410574000-7f2410576000 r--p 0000c000 08:01 259489                     /usr/lib/jvm/java-11-openjdk-amd64/lib/libverify.so
+7f2410576000-7f2410578000 r--p 0000d000 08:01 259489                     /usr/lib/jvm/java-11-openjdk-amd64/lib/libverify.so
+7f2410578000-7f2410579000 rw-p 0000f000 08:01 259489                     /usr/lib/jvm/java-11-openjdk-amd64/lib/libverify.so
+7f2410579000-7f241057a000 r--p 00000000 08:01 3617                       /usr/lib/x86_64-linux-gnu/librt.so.1
+7f241057a000-7f241057b000 r-xp 00001000 08:01 3617                       /usr/lib/x86_64-linux-gnu/librt.so.1
+7f241057b000-7f241057c000 r--p 00002000 08:01 3617                       /usr/lib/x86_64-linux-gnu/librt.so.1
+7f241057c000-7f241057d000 r--p 00002000 08:01 3617                       /usr/lib/x86_64-linux-gnu/librt.so.1
+7f241057d000-7f241057e000 rw-p 00003000 08:01 3617                       /usr/lib/x86_64-linux-gnu/librt.so.1
+7f241057e000-7f2410582000 ---p 00000000 00:00 0 
+7f2410582000-7f241067e000 rw-p 00000000 00:00 0 
+7f241067e000-7f2410681000 r--p 00000000 08:01 3598                       /usr/lib/x86_64-linux-gnu/libgcc_s.so.1
+7f2410681000-7f2410698000 r-xp 00003000 08:01 3598                       /usr/lib/x86_64-linux-gnu/libgcc_s.so.1
+7f2410698000-7f241069c000 r--p 0001a000 08:01 3598                       /usr/lib/x86_64-linux-gnu/libgcc_s.so.1
+7f241069c000-7f241069d000 r--p 0001d000 08:01 3598                       /usr/lib/x86_64-linux-gnu/libgcc_s.so.1
+7f241069d000-7f241069e000 rw-p 0001e000 08:01 3598                       /usr/lib/x86_64-linux-gnu/libgcc_s.so.1
+7f241069e000-7f24106ac000 r--p 00000000 08:01 3606                       /usr/lib/x86_64-linux-gnu/libm.so.6
+7f24106ac000-7f2410728000 r-xp 0000e000 08:01 3606                       /usr/lib/x86_64-linux-gnu/libm.so.6
+7f2410728000-7f2410783000 r--p 0008a000 08:01 3606                       /usr/lib/x86_64-linux-gnu/libm.so.6
+7f2410783000-7f2410784000 r--p 000e4000 08:01 3606                       /usr/lib/x86_64-linux-gnu/libm.so.6
+7f2410784000-7f2410785000 rw-p 000e5000 08:01 3606                       /usr/lib/x86_64-linux-gnu/libm.so.6
+7f2410785000-7f241081f000 r--p 00000000 08:01 3597                       /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30
+7f241081f000-7f2410930000 r-xp 0009a000 08:01 3597                       /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30
+7f2410930000-7f241099f000 r--p 001ab000 08:01 3597                       /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30
+7f241099f000-7f24109a0000 ---p 0021a000 08:01 3597                       /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30
+7f24109a0000-7f24109ab000 r--p 0021a000 08:01 3597                       /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30
+7f24109ab000-7f24109ae000 rw-p 00225000 08:01 3597                       /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30
+7f24109ae000-7f24109b1000 rw-p 00000000 00:00 0 
+7f24109b1000-7f2410c33000 r--p 00000000 08:01 259496                     /usr/lib/jvm/java-11-openjdk-amd64/lib/server/libjvm.so
+7f2410c33000-7f24118d0000 r-xp 00282000 08:01 259496                     /usr/lib/jvm/java-11-openjdk-amd64/lib/server/libjvm.so
+7f24118d0000-7f2411b2b000 r--p 00f1f000 08:01 259496                     /usr/lib/jvm/java-11-openjdk-amd64/lib/server/libjvm.so
+7f2411b2b000-7f2411b2c000 ---p 0117a000 08:01 259496                     /usr/lib/jvm/java-11-openjdk-amd64/lib/server/libjvm.so
+7f2411b2c000-7f2411bf0000 r--p 0117a000 08:01 259496                     /usr/lib/jvm/java-11-openjdk-amd64/lib/server/libjvm.so
+7f2411bf0000-7f2411c2b000 rw-p 0123e000 08:01 259496                     /usr/lib/jvm/java-11-openjdk-amd64/lib/server/libjvm.so
+7f2411c2b000-7f2411c85000 rw-p 00000000 00:00 0 
+7f2411c85000-7f2411cad000 r--p 00000000 08:01 3603                       /usr/lib/x86_64-linux-gnu/libc.so.6
+7f2411cad000-7f2411e42000 r-xp 00028000 08:01 3603                       /usr/lib/x86_64-linux-gnu/libc.so.6
+7f2411e42000-7f2411e9a000 r--p 001bd000 08:01 3603                       /usr/lib/x86_64-linux-gnu/libc.so.6
+7f2411e9a000-7f2411e9e000 r--p 00214000 08:01 3603                       /usr/lib/x86_64-linux-gnu/libc.so.6
+7f2411e9e000-7f2411ea0000 rw-p 00218000 08:01 3603                       /usr/lib/x86_64-linux-gnu/libc.so.6
+7f2411ea0000-7f2411ead000 rw-p 00000000 00:00 0 
+7f2411ead000-7f2411eb0000 r--p 00000000 08:01 259455                     /usr/lib/jvm/java-11-openjdk-amd64/lib/jli/libjli.so
+7f2411eb0000-7f2411eba000 r-xp 00003000 08:01 259455                     /usr/lib/jvm/java-11-openjdk-amd64/lib/jli/libjli.so
+7f2411eba000-7f2411ebd000 r--p 0000d000 08:01 259455                     /usr/lib/jvm/java-11-openjdk-amd64/lib/jli/libjli.so
+7f2411ebd000-7f2411ebe000 ---p 00010000 08:01 259455                     /usr/lib/jvm/java-11-openjdk-amd64/lib/jli/libjli.so
+7f2411ebe000-7f2411ebf000 r--p 00010000 08:01 259455                     /usr/lib/jvm/java-11-openjdk-amd64/lib/jli/libjli.so
+7f2411ebf000-7f2411ec0000 rw-p 00011000 08:01 259455                     /usr/lib/jvm/java-11-openjdk-amd64/lib/jli/libjli.so
+7f2411ec0000-7f2411ec2000 r--p 00000000 08:01 3999                       /usr/lib/x86_64-linux-gnu/libz.so.1.2.11
+7f2411ec2000-7f2411ed3000 r-xp 00002000 08:01 3999                       /usr/lib/x86_64-linux-gnu/libz.so.1.2.11
+7f2411ed3000-7f2411ed9000 r--p 00013000 08:01 3999                       /usr/lib/x86_64-linux-gnu/libz.so.1.2.11
+7f2411ed9000-7f2411eda000 ---p 00019000 08:01 3999                       /usr/lib/x86_64-linux-gnu/libz.so.1.2.11
+7f2411eda000-7f2411edb000 r--p 00019000 08:01 3999                       /usr/lib/x86_64-linux-gnu/libz.so.1.2.11
+7f2411edb000-7f2411edc000 rw-p 0001a000 08:01 3999                       /usr/lib/x86_64-linux-gnu/libz.so.1.2.11
+7f2411ee0000-7f2411ee1000 ---p 00000000 00:00 0 
+7f2411ee1000-7f2411ee2000 r--p 00000000 00:00 0 
+7f2411ee2000-7f2411ee4000 rw-p 00000000 00:00 0 
+7f2411ee4000-7f2411ee6000 r--p 00000000 08:01 3600                       /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2
+7f2411ee6000-7f2411f10000 r-xp 00002000 08:01 3600                       /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2
+7f2411f10000-7f2411f1b000 r--p 0002c000 08:01 3600                       /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2
+7f2411f1c000-7f2411f1e000 r--p 00037000 08:01 3600                       /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2
+7f2411f1e000-7f2411f20000 rw-p 00039000 08:01 3600                       /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2
+7fffcbda9000-7fffcbdcc000 rw-p 00000000 00:00 0                          [stack]
+7fffcbdf7000-7fffcbdfb000 r--p 00000000 00:00 0                          [vvar]
+7fffcbdfb000-7fffcbdfd000 r-xp 00000000 00:00 0                          [vdso]
+ffffffffff600000-ffffffffff601000 --xp 00000000 00:00 0                  [vsyscall]
+
+
+VM Arguments:
+jvm_args: -Xmx1G -Xms1G -XX:+UseG1GC -XX:MaxGCPauseMillis=20 -XX:InitiatingHeapOccupancyPercent=35 -XX:+ExplicitGCInvokesConcurrent -XX:MaxInlineLevel=15 -Djava.awt.headless=true -Xlog:gc*:file=/home/ubuntu/kafka_2.13-3.5.1/bin/../logs/kafkaServer-gc.log:time,tags:filecount=10,filesize=100M -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Dkafka.logs.dir=/home/ubuntu/kafka_2.13-3.5.1/bin/../logs -Dlog4j.configuration=file:bin/../config/log4j.properties 
+java_command: kafka.Kafka config/kraft/server.properties
+java_class_path (initial): /home/ubuntu/kafka_2.13-3.5.1/bin/../libs/activation-1.1.1.jar:/home/ubuntu/kafka_2.13-3.5.1/bin/../libs/aopalliance-repackaged-2.6.1.jar:/home/ubuntu/kafka_2.13-3.5.1/bin/../libs/argparse4j-0.7.0.jar:/home/ubuntu/kafka_2.13-3.5.1/bin/../libs/audience-annotations-0.13.0.jar:/home/ubuntu/kafka_2.13-3.5.1/bin/../libs/commons-cli-1.4.jar:/home/ubuntu/kafka_2.13-3.5.1/bin/../libs/commons-lang3-3.8.1.jar:/home/ubuntu/kafka_2.13-3.5.1/bin/../libs/connect-api-3.5.1.jar:/home/ubuntu/kafka_2.13-3.5.1/bin/../libs/connect-basic-auth-extension-3.5.1.jar:/home/ubuntu/kafka_2.13-3.5.1/bin/../libs/connect-json-3.5.1.jar:/home/ubuntu/kafka_2.13-3.5.1/bin/../libs/connect-mirror-3.5.1.jar:/home/ubuntu/kafka_2.13-3.5.1/bin/../libs/connect-mirror-client-3.5.1.jar:/home/ubuntu/kafka_2.13-3.5.1/bin/../libs/connect-runtime-3.5.1.jar:/home/ubuntu/kafka_2.13-3.5.1/bin/../libs/connect-transforms-3.5.1.jar:/home/ubuntu/kafka_2.13-3.5.1/bin/../libs/hk2-api-2.6.1.jar:/home/ubuntu/kafka_2.13-3.5.1/bin/../libs/hk2-locator-2.6.1.jar:/home/ubuntu/kafka_2.13-3.5.1/bin/../libs/hk2-utils-2.6.1.jar:/home/ubuntu/kafka_2.13-3.5.1/bin/../libs/jackson-annotations-2.13.5.jar:/home/ubuntu/kafka_2.13-3.5.1/bin/../libs/jackson-core-2.13.5.jar:/home/ubuntu/kafka_2.13-3.5.1/bin/../libs/jackson-databind-2.13.5.jar:/home/ubuntu/kafka_2.13-3.5.1/bin/../libs/jackson-dataformat-csv-2.13.5.jar:/home/ubuntu/kafka_2.13-3.5.1/bin/../libs/jackson-datatype-jdk8-2.13.5.jar:/home/ubuntu/kafka_2.13-3.5.1/bin/../libs/jackson-jaxrs-base-2.13.5.jar:/home/ubuntu/kafka_2.13-3.5.1/bin/../libs/jackson-jaxrs-json-provider-2.13.5.jar:/home/ubuntu/kafka_2.13-3.5.1/bin/../libs/jackson-module-jaxb-annotations-2.13.5.jar:/home/ubuntu/kafka_2.13-3.5.1/bin/../libs/jackson-module-scala_2.13-2.13.5.jar:/home/ubuntu/kafka_2.13-3.5.1/bin/../libs/jakarta.activation-api-1.2.2.jar:/home/ubuntu/kafka_2.13-3.5.1/bin/../libs/jakarta.annotation-api-1.3.5.jar:/home/ubuntu/kafka_2.13-3.5.1/bin/../libs/jakarta.inject-2.6.1.ja
+Launcher Type: SUN_STANDARD
+
+[Global flags]
+     intx CICompilerCount                          = 2                                         {product} {ergonomic}
+     uint ConcGCThreads                            = 1                                         {product} {ergonomic}
+     bool ExplicitGCInvokesConcurrent              = true                                      {product} {command line}
+     uint G1ConcRefinementThreads                  = 1                                         {product} {ergonomic}
+   size_t G1HeapRegionSize                         = 1048576                                   {product} {ergonomic}
+    uintx GCDrainStackTargetSize                   = 64                                        {product} {ergonomic}
+   size_t InitialHeapSize                          = 1073741824                                {product} {command line}
+    uintx InitiatingHeapOccupancyPercent           = 35                                        {product} {command line}
+     bool ManagementServer                         = true                                      {product} {command line}
+   size_t MarkStackSize                            = 4194304                                   {product} {ergonomic}
+    uintx MaxGCPauseMillis                         = 20                                        {product} {command line}
+   size_t MaxHeapSize                              = 1073741824                                {product} {command line}
+     intx MaxInlineLevel                           = 15                                        {product} {command line}
+   size_t MinHeapDeltaBytes                        = 1048576                                   {product} {ergonomic}
+    uintx NonNMethodCodeHeapSize                   = 5825164                                {pd product} {ergonomic}
+    uintx NonProfiledCodeHeapSize                  = 122916538                              {pd product} {ergonomic}
+    uintx ProfiledCodeHeapSize                     = 122916538                              {pd product} {ergonomic}
+    uintx ReservedCodeCacheSize                    = 251658240                              {pd product} {ergonomic}
+     bool SegmentedCodeCache                       = true                                      {product} {ergonomic}
+     bool UseCompressedClassPointers               = true                                 {lp64_product} {ergonomic}
+     bool UseCompressedOops                        = true                                 {lp64_product} {ergonomic}
+     bool UseG1GC                                  = true                                      {product} {command line}
+
+Logging:
+Log output configuration:
+ #0: stdout all=warning uptime,level,tags
+ #1: stderr all=off uptime,level,tags
+ #2: file=/home/ubuntu/kafka_2.13-3.5.1/bin/../logs/kafkaServer-gc.log all=off,gc*=info time,tags filecount=10,filesize=100M (reconfigured)
+
+Environment Variables:
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+SHELL=/bin/bash
+LANG=C.UTF-8
+TERM=xterm-256color
+
+Signal Handlers:
+SIGSEGV: [libjvm.so+0xeac9a0], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGBUS: [libjvm.so+0xeac9a0], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGFPE: [libjvm.so+0xeac9a0], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGPIPE: [libjvm.so+0xbef0c0], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGXFSZ: [libjvm.so+0xbef0c0], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGILL: [libjvm.so+0xeac9a0], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGUSR2: [libjvm.so+0xbeef60], sa_mask[0]=00000000000000000000000000000000, sa_flags=SA_RESTART|SA_SIGINFO
+SIGHUP: SIG_DFL, sa_mask[0]=00000000000000000000000000000000, sa_flags=none
+SIGINT: SIG_DFL, sa_mask[0]=00000000000000000000000000000000, sa_flags=none
+SIGTERM: SIG_DFL, sa_mask[0]=00000000000000000000000000000000, sa_flags=none
+SIGQUIT: SIG_DFL, sa_mask[0]=00000000000000000000000000000000, sa_flags=none
+
+
+---------------  S Y S T E M  ---------------
+
+OS:DISTRIB_ID=Ubuntu
+DISTRIB_RELEASE=22.04
+DISTRIB_CODENAME=jammy
+DISTRIB_DESCRIPTION="Ubuntu 22.04.3 LTS"
+uname:Linux 5.15.0-82-generic #91-Ubuntu SMP Mon Aug 14 14:14:14 UTC 2023 x86_64
+OS uptime: 0 days 0:40 hours
+libc:glibc 2.35 NPTL 2.35 
+rlimit (soft/hard): STACK 8192k/infinity , CORE 0k/infinity , NPROC 3413/3413 , NOFILE 1048576/1048576 , AS infinity/infinity , CPU infinity/infinity , DATA infinity/infinity , FSIZE infinity/infinity , MEMLOCK 114200k/114200k
+load average:0.00 0.03 0.22
+
+/proc/meminfo:
+MemTotal:         913604 kB
+MemFree:          212020 kB
+MemAvailable:     560752 kB
+Buffers:           33652 kB
+Cached:           424336 kB
+SwapCached:            0 kB
+Active:           247084 kB
+Inactive:         269340 kB
+Active(anon):        884 kB
+Inactive(anon):    67500 kB
+Active(file):     246200 kB
+Inactive(file):   201840 kB
+Unevictable:       27652 kB
+Mlocked:           27652 kB
+SwapTotal:             0 kB
+SwapFree:              0 kB
+Dirty:                60 kB
+Writeback:             0 kB
+AnonPages:         86044 kB
+Mapped:            64460 kB
+Shmem:               920 kB
+KReclaimable:      46824 kB
+Slab:              79696 kB
+SReclaimable:      46824 kB
+SUnreclaim:        32872 kB
+KernelStack:        1840 kB
+PageTables:         1876 kB
+NFS_Unstable:          0 kB
+Bounce:                0 kB
+WritebackTmp:          0 kB
+CommitLimit:      456800 kB
+Committed_AS:     399340 kB
+VmallocTotal:   34359738367 kB
+VmallocUsed:       33888 kB
+VmallocChunk:          0 kB
+Percpu:              592 kB
+HardwareCorrupted:     0 kB
+AnonHugePages:         0 kB
+ShmemHugePages:        0 kB
+ShmemPmdMapped:        0 kB
+FileHugePages:         0 kB
+FilePmdMapped:         0 kB
+HugePages_Total:       0
+HugePages_Free:        0
+HugePages_Rsvd:        0
+HugePages_Surp:        0
+Hugepagesize:       2048 kB
+Hugetlb:               0 kB
+DirectMap4k:       87368 kB
+DirectMap2M:      960512 kB
+DirectMap1G:           0 kB
+
+/sys/kernel/mm/transparent_hugepage/enabled:
+always [madvise] never
+/sys/kernel/mm/transparent_hugepage/defrag (defrag/compaction efforts parameter):
+always defer defer+madvise [madvise] never
+
+Process Memory:
+Virtual Size: 756848K (peak: 1833372K)
+Resident Set Size: 18624K (peak: 18624K) (anon: 5596K, file: 13028K, shmem: 0K)
+Swapped out: 0K
+C-Heap outstanding allocations: 6360K, retained: 423K
+glibc malloc tunables: (default)
+
+/proc/sys/kernel/threads-max (system-wide limit on the number of threads):
+6827
+/proc/sys/vm/max_map_count (maximum number of memory map areas a process may have):
+65530
+/proc/sys/kernel/pid_max (system-wide limit on number of process identifiers):
+4194304
+
+container (cgroup) information:
+container_type: cgroupv2
+cpu_cpuset_cpus: not supported
+cpu_memory_nodes: not supported
+active_processor_count: 1
+cpu_quota: not supported
+cpu_period: not supported
+cpu_shares: not supported
+memory_limit_in_bytes: unlimited
+memory_and_swap_limit_in_bytes: unlimited
+memory_soft_limit_in_bytes: unlimited
+memory_usage_in_bytes: 387528 k
+memory_max_usage_in_bytes: not supported
+memory_swap_current_in_bytes: unlimited
+memory_swap_max_limit_in_bytes: unlimited
+maximum number of tasks: unlimited
+current number of tasks: 8
+
+Hyper-V virtualization detected
+Steal ticks since vm start: 0
+Steal ticks percentage since vm start:  0.000
+
+CPU:total 1 (initial active 1) (1 cores per cpu, 1 threads per core) family 6 model 142 stepping 10 microcode 0xffffffff, cmov, cx8, fxsr, mmx, sse, sse2, sse3, ssse3, sse4.1, sse4.2, popcnt, avx, avx2, aes, clmul, erms, 3dnowpref, lzcnt, tsc, bmi1, bmi2, adx, fma
+CPU Model and flags from /proc/cpuinfo:
+model name	: Intel(R) Core(TM) i5-8250U CPU @ 1.60GHz
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ss syscall nx pdpe1gb rdtscp lm constant_tsc rep_good nopl xtopology cpuid aperfmperf pni pclmulqdq ssse3 fma cx16 pcid sse4_1 sse4_2 movbe popcnt aes xsave avx f16c rdrand hypervisor lahf_lm abm 3dnowprefetch invpcid_single pti ssbd ibrs ibpb stibp fsgsbase bmi1 avx2 smep bmi2 erms invpcid rdseed adx smap clflushopt xsaveopt xsavec xgetbv1 xsaves flush_l1d arch_capabilities
+Online cpus:
+0
+Offline cpus:
+
+BIOS frequency limitation:
+<Not Available>
+Frequency switch latency (ns):
+<Not Available>
+Available cpu frequencies:
+<Not Available>
+Current governor:
+<Not Available>
+Core performance/turbo boost:
+<Not Available>
+
+Memory: 4k page, physical 913604k(212020k free), swap 0k(0k free)
+
+vm_info: OpenJDK 64-Bit Server VM (11.0.20.1+1-post-Ubuntu-0ubuntu122.04) for linux-amd64 JRE (11.0.20.1+1-post-Ubuntu-0ubuntu122.04), built on Aug 24 2023 23:14:05 by "unknown" with gcc 11.4.0
+
+END.

@@ -1,0 +1,6 @@
+[2023-09-02 23:39:48,519] INFO [QuorumController id=1] Unfenced broker 1 has requested and been granted a controlled shutdown. (org.apache.kafka.controller.BrokerHeartbeatManager)
+[2023-09-02 23:39:48,557] INFO [QuorumController id=1] enterControlledShutdown[1]: changing 51 partition(s) (org.apache.kafka.controller.ReplicationControlManager)
+[2023-09-02 23:39:48,646] INFO [QuorumController id=1] The request from broker 1 to shut down has been granted since the lowest active offset 9223372036854775807 is now greater than the broker's controlled shutdown offset 27989. (org.apache.kafka.controller.BrokerHeartbeatManager)
+[2023-09-02 23:39:48,648] INFO [QuorumController id=1] handleBrokerFenced: changing 51 partition(s) (org.apache.kafka.controller.ReplicationControlManager)
+[2023-09-02 23:39:59,634] ERROR [QuorumController id=1] writeNoOpRecord: unable to start processing because of RejectedExecutionException. Reason: null (org.apache.kafka.controller.QuorumController)
+[2023-09-02 23:39:59,635] ERROR [QuorumController id=1] maybeBalancePartitionLeaders: unable to start processing because of RejectedExecutionException. Reason: null (org.apache.kafka.controller.QuorumController)
