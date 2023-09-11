@@ -9,3 +9,9 @@
 5. Deploy the war file to the tomcat server.
 6. Modify the insex.html file accordinglt to update for public IP.
 7. Start the Tomcat Server.
+
+
+
+# WIP
+1. To allow public access to the site.
+2. Issue with starting MyKafkaConsumer class.
